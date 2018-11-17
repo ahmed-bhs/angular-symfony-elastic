@@ -1,0 +1,11 @@
+<div class="row mt-5">
+  <div class="col-md-4 mb-3" *ngFor="let article of articles">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">{{article.id}}</h5>
+        <p class="card-text">{{article.title}}</p>
+        <a href="#" class="btn btn-primary">Visit article</a>
+      </div>
+    </div>
+  </div>
+</div>
