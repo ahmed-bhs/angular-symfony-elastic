@@ -12,8 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  loginUserData = {};
-  authForm: FormGroup;
+  loginForm: FormGroup;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -25,14 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       'username': ['', Validators.email],
       'password': ['', Validators.required]
     });
   }
 
   loginUser() {
-    const credentials = this.authForm.value;
+    const credentials = this.loginForm.value;
     return this.auth.loginUser(credentials)
       .subscribe(
         res => {
@@ -45,5 +44,13 @@ export class LoginComponent implements OnInit {
         err => this.toastr.error(err)
       )
       ;
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  get username() {
+    return this.loginForm.get('username');
   }
 }
