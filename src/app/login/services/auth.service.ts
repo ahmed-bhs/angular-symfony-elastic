@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,10 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
+  }
+
+  handleError(error: any) {
+    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    return Observable.throw(error);
   }
 }

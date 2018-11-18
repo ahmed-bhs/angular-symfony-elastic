@@ -19,7 +19,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
         this.auth.logout();
         this.router.navigate(['login']);
       }
-      const error = err.message || err.statusText;
+      const error = err.error.message || err.statusText;
       return throwError(error);
     }));
   }

@@ -14,6 +14,9 @@ import {ErrorInterceptorService} from './login/services/interceptors/error-inter
 import {ArticleComponent} from './article/article.component';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
+import {CommonModule} from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
     FormsModule,
     HttpClientModule,
     LoadingBarHttpClientModule,
-    LoadingBarRouterModule
+    LoadingBarRouterModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot()
   ],
   providers: [AuthService, AuthGuard,
     {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 import {PreviousRouteService} from './services/previous-route.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +11,26 @@ import {PreviousRouteService} from './services/previous-route.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router, private previousRouteService: PreviousRouteService) { }
+  constructor(private auth: AuthService, private router: Router, private previousRouteService: PreviousRouteService, private toastr: ToastrService) {
+    toastr.toastrConfig.preventDuplicates = true;
+  }
 
   loginUserData = {};
 
   ngOnInit() {
-    console.log(this.previousRouteService.getPreviousUrl());
-  }
+     }
 
   loginUser() {
     return this.auth.loginUser(this.loginUserData)
       .subscribe(
         res => {
           if (res.token) {
+            this.toastr.success('l\'authentification a réussi');
             localStorage.setItem('token', res.token);
             this.router.navigate([this.previousRouteService.getPreviousUrl()]);
           }
         },
-        err => console.log(err)
+        err => this.toastr.error( err)
       )
       ;
   }
