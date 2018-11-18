@@ -11,7 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router, private previousRouteService: PreviousRouteService, private toastr: ToastrService) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private previousRouteService: PreviousRouteService,
+    private toastr: ToastrService
+  ) {
     toastr.toastrConfig.preventDuplicates = true;
   }
 
