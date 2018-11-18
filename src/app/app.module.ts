@@ -4,19 +4,16 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RegisterComponent} from './register/register.component';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {AuthService} from './login/services/auth.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
-import {TokenInterceptorService} from './login/services/interceptors/token-interceptor.service';
-import {AuthGuard} from './login/guard/auth.guard';
-import {ErrorInterceptorService} from './login/services/interceptors/error-interceptor.service';
 import {ArticleComponent} from './article/article.component';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -26,9 +23,10 @@ import {ToastrModule} from 'ngx-toastr';
     ArticleComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     HttpClientModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
@@ -36,18 +34,7 @@ import {ToastrModule} from 'ngx-toastr';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot()
   ],
-  providers: [AuthService, AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptorService,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

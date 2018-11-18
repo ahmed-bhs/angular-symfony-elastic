@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from './services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../core/services/auth.service';
 import {Router} from '@angular/router';
-import {PreviousRouteService} from './services/previous-route.service';
-import { ToastrService } from 'ngx-toastr';
+import {PreviousRouteService} from '../core/services/previous-route.service';
+import {ToastrService} from 'ngx-toastr';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +12,28 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
+  loginUserData = {};
+  authForm: FormGroup;
   constructor(
     private auth: AuthService,
     private router: Router,
     private previousRouteService: PreviousRouteService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder
   ) {
     toastr.toastrConfig.preventDuplicates = true;
   }
 
-  loginUserData = {};
-
   ngOnInit() {
-     }
+    this.authForm = this.formBuilder.group({
+      'username': ['', Validators.email],
+      'password': ['', Validators.required]
+    });
+  }
 
   loginUser() {
-    return this.auth.loginUser(this.loginUserData)
+    const credentials = this.authForm.value;
+    return this.auth.loginUser(credentials)
       .subscribe(
         res => {
           if (res.token) {
@@ -35,7 +42,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.previousRouteService.getPreviousUrl()]);
           }
         },
-        err => this.toastr.error( err)
+        err => this.toastr.error(err)
       )
       ;
   }

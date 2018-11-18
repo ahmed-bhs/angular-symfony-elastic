@@ -12,7 +12,7 @@ export class AuthService {
   private _loginUrl = `${environment.apiUrl}` + '/login_check';
 
   constructor(private http: HttpClient, private router: Router) { }
-
+d
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);
   }
