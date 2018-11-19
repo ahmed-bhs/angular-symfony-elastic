@@ -11,10 +11,13 @@
         <div class="card-body">
           <form class="form" [formGroup]="loginForm">
             <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" formControlName="username" name="username" class="form-control rounded-0" required>
-              <span class="invalid" *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.required">
-                Username is required.
+              <label for="email">Email</label>
+              <input type="text" formControlName="email" name="email" class="form-control rounded-0" required>
+              <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
+                Email is required.
+              </span>
+              <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.email">
+                Email is not Valid Email.
               </span>
             </div>
             <div class="form-group">
