@@ -1,4 +1,4 @@
-<masonry class="row mt-5" *ngIf="!(articles | async)">
+<masonry class="row mt-5" *ngIf="!(articles$ | async)">
   <masonry-brick class="col-md-4 mb-3" *ngFor="let item of createRange(15)">
     <div class="timeline-wrapper">
       <div class="timeline-item">
@@ -20,7 +20,7 @@
 <!--<div class="dashboard-grid large-12 columns"
      (scrolled)="onScroll()">-->
   <masonry class="row mt-5" [useImagesLoaded]="true">
-    <masonry-brick class="col-md-4 mb-3" *ngFor="let article of articles | async">
+    <masonry-brick class="col-md-4 mb-3" *ngFor="let article of articles$ | async">
       <div class="card text-center">
         <div class="card-body">
           <h5 class="card-title">{{article.id}}</h5>

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subscription} from 'rxjs';
+import {share} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-article',
@@ -11,14 +12,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   private _articlesUrl = 'http://127.0.0.1:8000/api/articles';
   private subscription: Subscription;
-  private articles: Observable<any>;
+  private articles$: Observable<any>;
 
   constructor(
     private http: HttpClient,
   ) { }
 
   ngOnInit() {
-    this.articles = this.http.get(this._articlesUrl);
+    this.articles$ = this.http.get(this._articlesUrl)
+      .pipe(share());
   }
 
   trackElement(index: number, element: any) {
