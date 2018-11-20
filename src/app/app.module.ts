@@ -14,7 +14,7 @@ import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {CoreModule} from './core/core.module';
-
+import { MasonryModule } from 'angular2-masonry';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +32,8 @@ import {CoreModule} from './core/core.module';
     LoadingBarRouterModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MasonryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
