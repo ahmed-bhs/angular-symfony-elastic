@@ -8,7 +8,7 @@ import {ArticleComponent} from './article/article.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/register',
+    redirectTo: '/articles',
     pathMatch: 'full',
   },
   {

@@ -1,33 +1,39 @@
-<masonry class="row mt-5" *ngIf="!(articles$ | async)">
-  <masonry-brick class="col-md-4 mb-3" *ngFor="let item of createRange(15)">
-    <div class="timeline-wrapper">
-      <div class="timeline-item">
-        <div class="animated-background">
-          <div class="background-masker image"></div>
-          <div class="background-masker header-bottom"></div>
-          <div class="background-masker paragraph1-bottom"></div>
-          <div class="background-masker paragraph2-bottom"></div>
-          <div class="background-masker paragraph3-bottom"></div>
-          <div class="background-masker paragraph4-bottom"></div>
-          <div class="background-masker paragraph5-bottom"></div>
-          <div class="background-masker paragraph6-bottom"></div>
+
+<div class="col-xs-12"  *ngIf="articles">
+  <div class="blog-grids">
+
+    <div class="grid" *ngFor="let article of (articles); trackBy: trackElement">
+      <div class="entry-media" >
+        <img [src]="imagePath + article.image" alt="">
+      </div>
+      <div class="entry-body">
+        <span class="cat">{{article.title}}</span>
+        <h3><a [routerLink]="['/article/', article.id]">Visit {{article.title}}</a></h3>
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut..</p>
+        <div class="read-more-date">
+          <a href="#">Read More..</a>
+          <span class="date">3 Hours ago</span>
         </div>
+      </div>
+    </div>
+
+  </div>
+  <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="2" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+</div>
+
+<masonry class="row mt-5" *ngIf="!(observable$ | async)">
+  <masonry-brick class="col-md-4 mb-3" *ngFor="let item of createRange(6)">
+    <div class="timeline-item">
+      <div class="animated-background">
+        <div class="background-masker image"></div>
+        <div class="background-masker header-bottom"></div>
+        <div class="background-masker paragraph1-bottom"></div>
+        <div class="background-masker paragraph2-bottom"></div>
+        <div class="background-masker paragraph3-bottom"></div>
+        <div class="background-masker paragraph4-bottom"></div>
+        <div class="background-masker paragraph5-bottom"></div>
+        <div class="background-masker paragraph6-bottom"></div>
       </div>
     </div>
   </masonry-brick>
 </masonry>
-
-<!--<div class="dashboard-grid large-12 columns"
-     (scrolled)="onScroll()">-->
-  <masonry class="row mt-5" [useImagesLoaded]="true">
-    <masonry-brick class="col-md-4 mb-3" *ngFor="let article of articles$ | async">
-      <div class="card text-center">
-        <div class="card-body">
-          <h5 class="card-title">{{article.id}}</h5>
-          <p class="card-text">{{article.title}}</p>
-          <a href="#" class="btn btn-primary">Visit article</a>
-        </div>
-      </div>
-    </masonry-brick>
-  </masonry>
-<!--</div>-->
