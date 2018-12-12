@@ -16,13 +16,15 @@ import {ToastrModule} from 'ngx-toastr';
 import {CoreModule} from './core/core.module';
 import { MasonryModule } from 'angular2-masonry';
 import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { FadeInAnimationDirective } from './fade-in-animation.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    ArticleComponent
+    ArticleComponent,
+    FadeInAnimationDirective
   ],
   imports: [
     CoreModule,

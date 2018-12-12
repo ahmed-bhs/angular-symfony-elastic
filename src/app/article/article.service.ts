@@ -7,7 +7,6 @@ import {environment} from '../../environments/environment';
 })
 export class ArticleService {
   private _articlesUrl = `${environment.apiUrl}` + '/articles';
-  public aa = './assets/placeholder.gif';
   constructor(private http: HttpClient) { }
 
   getArticles(params?: HttpParams) {
@@ -15,5 +14,4 @@ export class ArticleService {
       params: params
     });
   }
-
 }

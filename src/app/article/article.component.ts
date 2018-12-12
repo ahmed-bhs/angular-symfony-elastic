@@ -49,19 +49,19 @@ export class ArticleComponent implements OnInit {
       this.total = res.total;
       this.limit = res.limit;
       return res._embedded.items;
-  }));
-  this.observable$.subscribe((res: Article[]) => this.articles = res);
-}
-
-trackElement(index: number, element: any) {
-  return element ? element.id : null;
-}
-
-createRange(len = 20) {
-  const arr = [];
-  for (let i = 0; i < len; i++) {
-    arr.push(i);
+    }));
+    this.observable$.subscribe((res: Article[]) => this.articles = res);
   }
-  return arr;
-}
+
+  trackElement(index: number, element: any) {
+    return element ? element.id : null;
+  }
+
+  createRange(len = 6) {
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }
 }
