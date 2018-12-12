@@ -16,6 +16,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {CoreModule} from './core/core.module';
 import { MasonryModule } from 'angular2-masonry';
 import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,

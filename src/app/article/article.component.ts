@@ -3,6 +3,9 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/internal/operators';
+import {Article} from './article.model';
+import {ItemResponse} from './item-response.model';
+import {ArticleService} from './article.service';
 
 @Component({
   selector: 'app-article',
@@ -10,31 +13,23 @@ import {map} from 'rxjs/internal/operators';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  itemsPerPage: any;
-  totalItems: any;
-  page: any;
-  previousPage: any;
-
-  public observable$: Observable<any>;
-  private _articlesUrl = `${environment.apiUrl}` + '/articles';
-  public articles: any;
+  public limit = 5;
+  public page = 1;
+  public total: number;
+  public previousPage: number;
   readonly imagePath = `${environment.apiUrl}` + '/..';
+
+  public observable$: Observable<Article[]>;
+  public articles: Article[];
 
   constructor(
     private http: HttpClient,
-  ) { }
+    private articleService: ArticleService
+  ) {
+  }
 
   ngOnInit() {
-    this.observable$ = this.http.get(this._articlesUrl).pipe(map((res: Response) => {
-
-      this.page = res['page'];
-      this.totalItems = res['total'];
-      this.itemsPerPage = res['limit'];
-      return res['_embedded']['items'];
-    }));
-    this.observable$.subscribe(
-      (res) => this.articles = res
-    );
+    this.loadData();
   }
 
   loadPage(page: number) {
@@ -45,24 +40,28 @@ export class ArticleComponent implements OnInit {
   }
 
   loadData() {
-     this.http.get(this._articlesUrl, {
-      params: new HttpParams()
-        .set('page', this.page)
-        .set('per_page', this.itemsPerPage)
-    }).pipe(map((res) => res['_embedded']['items'])).subscribe(
-       (res: any[]) => this.articles = res
-    );
-  }
+    this.observable$ = this.articleService.getArticles(
+      new HttpParams()
+        .set('page', this.page.toString())
+        .set('per_page', this.limit.toString())
+    ).pipe(map((res: ItemResponse) => {
+      this.page = res.page;
+      this.total = res.total;
+      this.limit = res.limit;
+      return res._embedded.items;
+  }));
+  this.observable$.subscribe((res: Article[]) => this.articles = res);
+}
 
-  trackElement(index: number, element: any) {
-    return element ? element.id : null;
-  }
+trackElement(index: number, element: any) {
+  return element ? element.id : null;
+}
 
-  createRange(len= 20) {
-    const arr = [];
-    for (let i = 0; i < len ; i++) {
-      arr.push(i);
-    }
-    return arr;
+createRange(len = 20) {
+  const arr = [];
+  for (let i = 0; i < len; i++) {
+    arr.push(i);
   }
+  return arr;
+}
 }

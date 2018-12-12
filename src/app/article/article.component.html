@@ -1,10 +1,10 @@
-
-<div class="col-xs-12"  *ngIf="articles">
+<masonry class="row mt-5">
   <div class="blog-grids">
 
     <div class="grid" *ngFor="let article of (articles); trackBy: trackElement">
-      <div class="entry-media" >
-        <img [src]="imagePath + article.image" alt="">
+
+     <div  class="entry-media" style=" " >
+        <img  [src]="imagePath + article.image " >
       </div>
       <div class="entry-body">
         <span class="cat">{{article.title}}</span>
@@ -18,8 +18,8 @@
     </div>
 
   </div>
-  <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="2" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
-</div>
+  <ngb-pagination [collectionSize]="total" [pageSize]="limit" [(page)]="page" [maxSize]="2" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+</masonry>
 
 <masonry class="row mt-5" *ngIf="!(observable$ | async)">
   <masonry-brick class="col-md-4 mb-3" *ngFor="let item of createRange(6)">
@@ -27,13 +27,10 @@
       <div class="animated-background">
         <div class="background-masker image"></div>
         <div class="background-masker header-bottom"></div>
-        <div class="background-masker paragraph1-bottom"></div>
-        <div class="background-masker paragraph2-bottom"></div>
-        <div class="background-masker paragraph3-bottom"></div>
-        <div class="background-masker paragraph4-bottom"></div>
-        <div class="background-masker paragraph5-bottom"></div>
-        <div class="background-masker paragraph6-bottom"></div>
+        ...
       </div>
     </div>
   </masonry-brick>
 </masonry>
+
+
