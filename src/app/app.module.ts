@@ -16,7 +16,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {CoreModule} from './core/core.module';
 import { MasonryModule } from 'angular2-masonry';
 import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-import { FadeInAnimationDirective } from './fade-in-animation.directive';
+import { FadeInOutDirectiveDirective } from './core/directives/fade-in-out-directive.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { FadeInAnimationDirective } from './fade-in-animation.directive';
     RegisterComponent,
     LoginComponent,
     ArticleComponent,
-    FadeInAnimationDirective
+    FadeInOutDirectiveDirective
   ],
   imports: [
     CoreModule,

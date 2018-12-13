@@ -2,8 +2,8 @@
   <div class="blog-grids">
 
     <div class="grid" *ngFor="let article of (articles); trackBy: trackElement">
-      <div class="entry-media">
-        <img appFadeInAnimation class="animated-background"  [src]="imagePath + article.image">
+      <div class="entry-media animated-background">
+        <img appFadeInOutDirective [show]="true" class="animated-background"  [src]="baseUrl + article.image">
       </div>
       <div class="entry-body">
         <span class="cat">{{article.title}}</span>
