@@ -5,13 +5,14 @@ import {AuthService} from './services/auth.service';
 import {ErrorInterceptorService} from './interceptors/error-interceptor.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthGuard} from './guard/auth.guard';
+import {ArticleService} from './services/article.service';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   declarations: [],
-  providers: [AuthService, AuthGuard,
+  providers: [AuthService, AuthGuard, ArticleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -4,9 +4,8 @@ export interface ItemResponse {
   page: number;
   total: number;
   limit: number;
-  _embedded: Items;
-}
-
-interface Items {
-  items: Article[];
+  _embedded: {
+    articles: Article[];
+    aggregations: any;
+  };
 }

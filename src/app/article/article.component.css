@@ -71,7 +71,7 @@
   width: calc(33.33% - 30px);
   float: left;
   padding: 15px;
-  margin: 20px 15px 15px;
+  margin: 0px 15px 15px;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
@@ -117,3 +117,4 @@
   color: #90949a;
   line-height: 1.8em;
 }
+

@@ -1,0 +1,14 @@
+<form action="#" class="search-wrap" [formGroup]="searchForm">
+  <div class="input-group w-100">
+    <input formControlName="queryField" type="text" class="form-control" style="width:55%;" placeholder="search for artists...">
+    <select class="custom-select"  name="category_name">
+      <option value="">All type</option><option value="codex">Special</option>
+      <option value="comments">Only best</option>
+      <option value="content">Latest</option>
+    </select>
+    <div class="input-group-append">
+      <input class="btn btn-primary" value="Search ..."  type="submit" (click)="search()"  />
+      <button class="btn btn-secondary" type="reset" (click)="reset()"><i class="fa fa-times"></i></button>
+    </div>
+  </div>
+</form>

@@ -28,7 +28,7 @@ export class FadeInOutDirectiveDirective {
   private fadeIn(): AnimationMetadata[] {
     return [
       style({opacity: 0}),
-      animate('800ms ease-in', style({opacity: 1})),
+      animate('400ms ease-in', style({opacity: 1})),
     ];
   }
 
