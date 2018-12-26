@@ -1,0 +1,24 @@
+<article class="card-group-item">
+  <header class="card-header">
+      <i class="icon-action fa fa-chevron-down"></i>
+      <h6 class="title">Prix </h6>
+  </header>
+  <div class="filter-content collapse show" id="collapse33">
+      <div class="card-body">
+          <ng5-slider [(value)]="minValue"  [(highValue)]="maxValue" [options]="options" ></ng5-slider>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                  <label>Min</label>
+                  <input class="form-control"  type="number" [(ngModel)]="minValue" >
+              </div>
+              <div class="form-group text-right col-md-6">
+                  <label>Max</label>
+                  <input class="form-control"  type="number"  [(ngModel)]="maxValue">
+              </div>
+          </div> <!-- form-row.// -->
+          <button class="btn btn-block btn-outline-primary">Apply</button>
+      </div> <!-- card-body.// -->
+  </div> <!-- collapse .// -->
+</article> <!-- card-group-item.// -->
+
+

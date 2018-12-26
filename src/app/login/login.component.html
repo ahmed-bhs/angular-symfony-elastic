@@ -1,39 +1,37 @@
-<div class="py-5">
-  <div class="row">
-    <div class="col-md-6 mx-auto">
-      <span class="anchor" id="formLogin"></span>
-
-      <!-- form card login -->
-      <div class="card rounded-0">
-        <div class="card-header">
-          <h3 class="mb-0">Login </h3> ahmedbhs123@gmail.com | password
-        </div>
-        <div class="card-body">
-          <form class="form" [formGroup]="loginForm">
+<!-- form card login -->
+<div class="card rounded-0 ">
+    <div class="card-header">
+        <h3 class="mb-0">Login </h3> ahmedbhs123@gmail.com | password
+    </div>
+    <div class="card-body">
+        <form class="form" [formGroup]="loginForm">
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" formControlName="email" name="email" class="form-control rounded-0" required>
-              <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
-                Email is required.
+                <label>Email</label>
+                <input type="text" formControlName="email" name="email" class="form-control rounded-0" required>
+                <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
+                Email est requis.
               </span>
-              <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.email">
+                <span class="invalid" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.email">
                 Email is not Valid Email.
               </span>
             </div>
             <div class="form-group">
-              <label>Password</label>
-              <input type="password" formControlName="password" name="password" class="form-control rounded-0"  required>
-              <span class="invalid" *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.required">
+                <label>Mot de passe</label>
+                <input type="password" formControlName="password" name="password" class="form-control rounded-0"
+                       required>
+                <span class="invalid"
+                      *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.required">
                 Password is required.
               </span>
             </div>
 
-            <button type="button" (click)="loginUser()" class="btn btn-primary float-right" [disabled]="!loginForm.valid">Login</button>
-          </form>
-        </div>
-        <!--/card-block-->
-      </div>
-      <!-- /form card login -->
+            <button type="button" class="btn btn-primary float-right"
+                    (click)="loginUser()"
+                    [disabled]="!loginForm.valid">
+                Login
+            </button>
+        </form>
     </div>
-  </div>
+    <!--/card-block-->
 </div>
+<!-- /form card login -->

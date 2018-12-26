@@ -25,10 +25,14 @@
     "@ngrx/store": "^2.2.3",
     "@ngx-loading-bar/http-client": "^2.2.0",
     "@ngx-loading-bar/router": "^2.2.0",
+    "@types/underscore": "^1.8.9",
     "angular2-masonry": "^0.4.0",
     "core-js": "^2.5.4",
+    "ng5-slider": "^1.1.11",
+    "ngx-cookie-service": "^2.1.0",
     "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",
+    "underscore": "^1.9.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

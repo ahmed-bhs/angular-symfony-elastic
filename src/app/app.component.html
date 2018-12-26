@@ -1,23 +1,129 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Eventhub</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<header class="section-header ">
+  <nav class="navbar navbar-top navbar-expand-lg navbar-dark bg-secondary shadow">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/articles" routerLinkActive="active">Articles</a>
+          </li>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/articles" routerLinkActive="active">Articles</a>
-      </li>
+        </ul>
+        <ul class="navbar-nav">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+          <a class="nav-link" (click)="auth.logout()" routerLinkActive="active">Logout</a>
+        </ul>
+      </div>
+    </div> <!-- container //  -->
+  </nav>
 
-    </ul>
-    <ul class="navbar-nav">
-      <a class="nav-link"  routerLink="/login" routerLinkActive="active">Login</a>
-      <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-      <a class="nav-link" (click)="auth.logout()" routerLinkActive="active">Logout</a>
-    </ul>
+</header> <!-- section-header.// -->
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<!--<section class="section-pagetop bg-secondary">-->
+  <!--<div class="container clearfix">-->
+    <!--<h2 class="title-page">Page heading</h2>-->
+
+    <!--<nav class="float-left">-->
+      <!--<ol class="breadcrumb text-white">-->
+        <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
+        <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+        <!--<li class="breadcrumb-item active" aria-current="page">Data</li>-->
+      <!--</ol>-->
+    <!--</nav>-->
+  <!--</div> &lt;!&ndash; container //  &ndash;&gt;-->
+<!--</section>-->
+<!-- ========================= SECTION INTRO END// ========================= -->
+<section class="section-content bg padding-y-sm">
+  <div class="container">
+
+<router-outlet>
+  <ngx-loading-bar></ngx-loading-bar>
+</router-outlet>
   </div>
-</nav>
+</section>
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name bg-white padding-y">
+  <div class="container">
+    <h4>Another section if needed</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
 
-<router-outlet><ngx-loading-bar></ngx-loading-bar></router-outlet>
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="section-footer bg-secondary">
+  <div class="container">
+    <section class="footer-top padding-top">
+      <div class="row">
+        <aside class="col-sm-3 col-md-3 white">
+          <h5 class="title">Customer Services</h5>
+          <ul class="list-unstyled">
+            <li> <a href="#">Help center</a></li>
+            <li> <a href="#">Money refund</a></li>
+            <li> <a href="#">Terms and Policy</a></li>
+            <li> <a href="#">Open dispute</a></li>
+          </ul>
+        </aside>
+        <aside class="col-sm-3  col-md-3 white">
+          <h5 class="title">My Account</h5>
+          <ul class="list-unstyled">
+            <li> <a href="#"> User Login </a></li>
+            <li> <a href="#"> User register </a></li>
+            <li> <a href="#"> Account Setting </a></li>
+            <li> <a href="#"> My Orders </a></li>
+            <li> <a href="#"> My Wishlist </a></li>
+          </ul>
+        </aside>
+        <aside class="col-sm-3  col-md-3 white">
+          <h5 class="title">About</h5>
+          <ul class="list-unstyled">
+            <li> <a href="#"> Our history </a></li>
+            <li> <a href="#"> How to buy </a></li>
+            <li> <a href="#"> Delivery and payment </a></li>
+            <li> <a href="#"> Advertice </a></li>
+            <li> <a href="#"> Partnership </a></li>
+          </ul>
+        </aside>
+        <aside class="col-sm-3">
+          <article class="white">
+            <h5 class="title">Contacts</h5>
+            <p>
+              <strong>Phone: </strong> +123456789 <br>
+              <strong>Fax:</strong> +123456789
+            </p>
+
+            <div class="btn-group white">
+              <a class="btn btn-facebook" title="Facebook" target="_blank" href="#"><i class="fab fa-facebook-f  fa-fw"></i></a>
+              <a class="btn btn-instagram" title="Instagram" target="_blank" href="#"><i class="fab fa-instagram  fa-fw"></i></a>
+              <a class="btn btn-youtube" title="Youtube" target="_blank" href="#"><i class="fab fa-youtube  fa-fw"></i></a>
+              <a class="btn btn-twitter" title="Twitter" target="_blank" href="#"><i class="fab fa-twitter  fa-fw"></i></a>
+            </div>
+          </article>
+        </aside>
+      </div> <!-- row.// -->
+      <br>
+    </section>
+    <section class="footer-bottom row border-top-white">
+      <div class="col-sm-6">
+        <p class="text-white-50"> Made with <3 <br>  by Vosidiy M.</p>
+      </div>
+      <div class="col-sm-6 text-right">
+        <p class="text-sm-right text-white-50">
+          Copyright &copy 2018 <br>
+          <a href="http://bootstrap-ecommerce.com" class="text-white-50">Bootstrap-ecommerce UI kit</a>
+        </p>
+      </div>
+    </section> <!-- //footer-top -->
+  </div><!-- //container -->
+</footer>
+<!-- ========================= FOOTER END // ========================= -->

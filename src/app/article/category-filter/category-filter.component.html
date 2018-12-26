@@ -1,0 +1,32 @@
+<article class="card-group-item">
+    <header class="card-header">
+        <i class="icon-action fas fa-tags"></i>
+        <h6 class="title">Catégories</h6>
+    </header>
+    <div class="card-body">
+        <div class="pb-3">
+            <div class="input-group">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    [(ngModel)]="categoryQuery"
+                >
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-unstyled list-lg"
+            *ngFor="let category of categories | search:'label':categoryQuery;"
+        >
+          <li>
+              <a (click)="!!filter(category.label)" href>
+                  {{(category.label|jsonObject).name}}
+                  <span class="float-right badge badge-light round">{{category.count}}</span>
+              </a>
+          </li>
+        </ul>
+    </div> <!-- card-body.// -->
+</article> <!-- card-group-item.// -->

@@ -1,39 +1,82 @@
+<section class="header-main shadow ">
+    <div class="container ">
+        <div class="row align-items-center">
+            <div class="col-md-2">
+                <div class="brand-wrap">
+                    Résultat de {{page}} - {{limit}} sur {{total}}
+                </div> <!-- brand-wrap.// -->
+            </div>
+            <div class="col-md-10">
+                <app-article-search
+                        (eventEmitterSearch)="receiveSearchQuery($event)"
+                        (eventEmitterReset)="resetSearchQuery()"
+                >
+                </app-article-search>
+            </div>
+            <div class="col-md-12 ">
+                <app-filter-display
+                        *ngFor="let filter of currentFilters"
+                        [filter]="filter"
+                        (unfiltered)="unfilter($event)"
+                >
+                </app-filter-display>
+            </div>
+        </div> <!-- row.// -->
+    </div> <!-- container.// -->
+</section> <!-- header-main .// -->
 
-<div class="col-xs-12"  *ngIf="articles">
-  <div class="blog-grids">
+<!-- ========================= SECTION CONTENT ========================= -->
+<div class="row padding-y-sm">
+    <aside class="col-sm-3">
+        <div class="card card-filter shadow">
+            <app-category-filter
+                    [categories]="aggregations?.category"
+                    (eventEmitterFilter)="receiveCategoryFilter($event)"
+            >
+            </app-category-filter>
+            <app-price-filter
+                    (eventEmitterFilter)="receivePriceFilter($event)"
+                    [floor]="aggregations?.minimum_price"
+                    [ceil]="aggregations?.maximum_price"
+            ></app-price-filter>
+            <app-supplier-filter
+                    [filters]="currentFilters"
+                    [suppliers]="aggregations?.suppliers"
+                    (eventEmitterFilter)="receiveSupplierFilter($event)"
+            ></app-supplier-filter>
+        </div> <!-- card.// -->
 
-    <div class="grid" *ngFor="let article of (articles); trackBy: trackElement">
-      <div class="entry-media" >
-        <img [src]="imagePath + article.image" alt="">
-      </div>
-      <div class="entry-body">
-        <span class="cat">{{article.title}}</span>
-        <h3><a [routerLink]="['/article/', article.id]">Visit {{article.title}}</a></h3>
-        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut..</p>
-        <div class="read-more-date">
-          <a href="#">Read More..</a>
-          <span class="date">3 Hours ago</span>
+    </aside> <!-- col.// -->
+    <main class="col-sm-9">
+
+        <div class="blog-grids">
+            <div class="grid" *ngFor="let article of (articles);">
+                <div class="entry-media animated-background">
+                    <img appFadeInOutDirective [show]="true" class="animated-background"
+                         [src]="baseUrl + article.data.image">
+                </div>
+                <div class="cold-md-3 entry-body">
+                    <div class="cat" [innerHTML]="(article.data.highlight)? article.data.highlight.title : article.data.title"></div>
+                <h3><span class="badge badge-pill badge-danger"><small style="font-size: 10px;">Visible</small> {{(article.data.aggs.visible ? 'oui' : 'non')}}</span>
+                    &nbsp; <span class="badge badge-pill badge-light"><small style="font-size: 10px;">Marque</small> {{article.data.brand}}</span></h3>
+                  <h3><span class="badge badge-light"><small style="font-size: 10px;">Fournisseur</small> {{article.data.aggs.supplierName}}</span>&nbsp;
+                  <span class="badge badge-info"><small style="font-size: 10px;">Cat</small> {{article.data.aggs.categoryName}}</span></h3>
+                </div>
+            </div>
+            <div class="grid" *ngIf="total === 0">Malheureusement il n'y a pas aucun résultat correspondant à cette recherche</div>
+            <div class="grid" *ngIf="total === undefined">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
         </div>
-      </div>
-    </div>
 
-  </div>
-  <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="2" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        <ngb-pagination [collectionSize]="total"
+                        [pageSize]="limit"
+                        [(page)]="page"
+                        [maxSize]="2"
+                        [rotate]="true"
+                        (pageChange)="loadPage($event)"
+        ></ngb-pagination>
+
+    </main> <!-- col.// -->
 </div>
-
-<masonry class="row mt-5" *ngIf="!(observable$ | async)">
-  <masonry-brick class="col-md-4 mb-3" *ngFor="let item of createRange(6)">
-    <div class="timeline-item">
-      <div class="animated-background">
-        <div class="background-masker image"></div>
-        <div class="background-masker header-bottom"></div>
-        <div class="background-masker paragraph1-bottom"></div>
-        <div class="background-masker paragraph2-bottom"></div>
-        <div class="background-masker paragraph3-bottom"></div>
-        <div class="background-masker paragraph4-bottom"></div>
-        <div class="background-masker paragraph5-bottom"></div>
-        <div class="background-masker paragraph6-bottom"></div>
-      </div>
-    </div>
-  </masonry-brick>
-</masonry>
+<!-- ========================= SECTION CONTENT END// ========================= -->

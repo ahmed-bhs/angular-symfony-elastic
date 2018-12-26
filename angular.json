@@ -46,7 +46,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/fonts/fontawesome/css/fontawesome-all.min.css",
+              "src/assets/css/ui.css",
+              "src/assets/css/responsive.css",
+              "src/assets/css/bootstrap.css"
             ],
             "scripts": []
           },
