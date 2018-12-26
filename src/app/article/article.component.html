@@ -36,6 +36,8 @@
             </app-category-filter>
             <app-price-filter
                     (eventEmitterFilter)="receivePriceFilter($event)"
+                    [floor]="aggregations?.minimum_price"
+                    [ceil]="aggregations?.maximum_price"
             ></app-price-filter>
             <app-supplier-filter
                     [filters]="currentFilters"

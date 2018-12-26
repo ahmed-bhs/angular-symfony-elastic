@@ -28,6 +28,7 @@
     "@types/underscore": "^1.8.9",
     "angular2-masonry": "^0.4.0",
     "core-js": "^2.5.4",
+    "ng5-slider": "^1.1.11",
     "ngx-cookie-service": "^2.1.0",
     "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",

@@ -9,7 +9,6 @@ import {Aggregation} from '../model/aggregation.modle';
 })
 export class CategoryFilterComponent {
 
-  constructor() { }
      @Input() categories: Aggregation[];
      @Output() eventEmitterFilter = new EventEmitter<number>();
 

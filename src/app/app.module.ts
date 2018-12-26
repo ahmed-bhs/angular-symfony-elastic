@@ -24,8 +24,8 @@ import { BrandFilterComponent } from './article/brand-filter/brand-filter.compon
 import { SupplierFilterComponent } from './article/supplier-filter/supplier-filter.component';
 import { FilterDisplayComponent } from './article/filter-display/filter-display.component';
 import { CookieService } from 'ngx-cookie-service';
-import { FilterPriceComponent } from './article/filter-price/filter-price.component';
 import { PriceFilterComponent } from './article/price-filter/price-filter.component';
+import {Ng5SliderModule} from 'ng5-slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +40,6 @@ import { PriceFilterComponent } from './article/price-filter/price-filter.compon
     BrandFilterComponent,
     SupplierFilterComponent,
     FilterDisplayComponent,
-    FilterPriceComponent,
     PriceFilterComponent
   ],
   imports: [
@@ -56,7 +55,8 @@ import { PriceFilterComponent } from './article/price-filter/price-filter.compon
     ToastrModule.forRoot(),
     MasonryModule,
     NgbModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    Ng5SliderModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
