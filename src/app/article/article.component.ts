@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Article} from './article.model';
-import {ItemResponse} from './item-response.model';
+import {Article} from './model/article.model';
+import {ItemResponse} from './model/item-response.model';
 import {ArticleService} from '../core/services/article.service';
 import {createHttpParams} from '../core/utils/http-params';
-import {_} from 'underscore';
+import * as _ from 'underscore';
+import {Filter} from './model/filter.model';
+import {Aggregations} from './model/aggregations.model';
 
 @Component({
     selector: 'app-article',
@@ -14,30 +15,40 @@ import {_} from 'underscore';
     styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
+    // Image Base URL
+    readonly baseUrl = `${environment.baseUrl}`;
+    // PAGINATION
     public limit = 6;
     public page = 1;
     public total: number;
-    public query: string = '';
-    public category: number;
     public previousPage: number;
-    public loading = true;
-    readonly baseUrl = `${environment.baseUrl}`;
-    public aggregations: any;
-    categoryFilters: string[] = [];
+
+    // HTTP PARAMS
+    private query: string;
+    private sort = 'score';
+    private categoryId: number;
+    private suppliersIds: number[];
+    private priceLte: number;
+    private priceGte: number;
+
+    // RESPONSE ELEMENTS
+    public aggregations: Aggregations;
     public articles: Article[];
-    private _destroyed$ = new Subject();
     private res: ItemResponse;
-    filters: any[] = [];
+
+    currentFilters: Filter[] = [];
+    httpParams: HttpParams;
+
+    // DESTROY SUBSCRIPTION
+    // private _destroyed$ = new Subject();
 
     constructor(
         private http: HttpClient,
         private articleService: ArticleService,
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.loadData();
-
     }
 
     loadPage(page: number) {
@@ -48,13 +59,22 @@ export class ArticleComponent implements OnInit {
     }
 
     loadData(params?: any) {
-        this.articleService.getArticles(
-            createHttpParams(_.extend({
+
+        this.httpParams = createHttpParams(
+          _.extend({
                 'page': this.page,
                 'per_page': this.limit,
                 'query': this.query,
-                'category': this.category
-            }, params))
+                'sort': this.sort,
+                'category': this.categoryId,
+                'suppliers[]': this.suppliersIds,
+                'priceGte': this.priceGte,
+                'priceLte': this.priceLte
+            }, params)
+        );
+
+        this.articleService.getArticles(
+            this.httpParams
         ).subscribe((res: ItemResponse) => {
             if (res) {
                 this.page = res.page;
@@ -63,45 +83,58 @@ export class ArticleComponent implements OnInit {
                 this.aggregations = res._embedded.aggregations;
                 this.articles = res._embedded.articles;
             }
-
         });
     }
 
-    trackElement(index: number, element: any) {
-        return element ? element.id : null;
-    }
-
-    receiveCategoryFilter($category) {
-        if(!_.contains(this.filters, $category.name)) {
-            this.filters.push($category.name);
-        }
+    receiveCategoryFilter($category: Filter) {
+        this.categoryId = $category.id;
         this.loadData({
             'category': $category.id,
         });
     }
 
-    receiveSupplierFilter($suppliers) {
+    receiveSupplierFilter($suppliers: Filter[]) {
+        this.currentFilters = $suppliers;
+        const ids = [];
+        $suppliers.forEach(supplier => {
+            ids.push(supplier.id);
+        });
+
+        this.suppliersIds = ids;
         this.loadData({
-            'suppliers[]': $suppliers,
+            'suppliers[]': this.suppliersIds,
         });
     }
 
-    receiveSearchQuery($query) {
-        this.query = $query;
+    receiveSearchQuery($query: any) {
+        this.query = $query.queryField;
+        this.sort = $query.sort;
         this.loadData({
-            'query': $query,
+            'query': this.query,
+            'sort': this.sort
         });
+    }
+
+    receivePriceFilter($event) {
+      this.priceLte = $event.priceLte;
+      this.priceGte = $event.priceGte;
+      this.loadData({
+        'priceGte': this.priceLte,
+        'priceLte': this.priceGte
+    });
     }
 
     resetSearchQuery() {
         this.query = '';
-        this.category = null;
+        this.categoryId = null;
+        this.suppliersIds = [];
         this.loadData();
     }
 
-    unfilter = (event) => {
-        this.filters = _.without(this.filters, event.filter);
-        this.resetSearchQuery();
-    };
-
+    unfilter = ($filter: Filter) => {
+        this.currentFilters = this.currentFilters.filter(e => e.id !== $filter.id);
+        this.suppliersIds = this.suppliersIds.filter(id => id !== $filter.id);
+        // Set values for this.categoryId and this.suppliers and then call loadData()
+        this.loadData();
+    }
 }

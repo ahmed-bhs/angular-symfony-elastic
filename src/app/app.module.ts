@@ -23,7 +23,9 @@ import {CategoryFilterComponent} from './article/category-filter/category-filter
 import { BrandFilterComponent } from './article/brand-filter/brand-filter.component';
 import { SupplierFilterComponent } from './article/supplier-filter/supplier-filter.component';
 import { FilterDisplayComponent } from './article/filter-display/filter-display.component';
-
+import { CookieService } from 'ngx-cookie-service';
+import { FilterPriceComponent } from './article/filter-price/filter-price.component';
+import { PriceFilterComponent } from './article/price-filter/price-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,9 @@ import { FilterDisplayComponent } from './article/filter-display/filter-display.
     CategoryFilterComponent,
     BrandFilterComponent,
     SupplierFilterComponent,
-    FilterDisplayComponent
+    FilterDisplayComponent,
+    FilterPriceComponent,
+    PriceFilterComponent
   ],
   imports: [
     CoreModule,
@@ -54,7 +58,7 @@ import { FilterDisplayComponent } from './article/filter-display/filter-display.
     NgbModule,
     NgbPaginationModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

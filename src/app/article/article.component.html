@@ -13,12 +13,14 @@
                 >
                 </app-article-search>
             </div>
-            <app-filter-display
-                    *ngFor="let filter of filters"
-                    [filter]="filter"
-                    (unfiltered)="unfilter($event)"
-            >
-            </app-filter-display>
+            <div class="col-md-12 ">
+                <app-filter-display
+                        *ngFor="let filter of currentFilters"
+                        [filter]="filter"
+                        (unfiltered)="unfilter($event)"
+                >
+                </app-filter-display>
+            </div>
         </div> <!-- row.// -->
     </div> <!-- container.// -->
 </section> <!-- header-main .// -->
@@ -32,29 +34,11 @@
                     (eventEmitterFilter)="receiveCategoryFilter($event)"
             >
             </app-category-filter>
-            <article class="card-group-item">
-                <header class="card-header">
-                    <i class="icon-action fa fa-chevron-down"></i>
-                    <h6 class="title">Prix </h6>
-                </header>
-                <div class="filter-content collapse show" id="collapse33">
-                    <div class="card-body">
-                        <input type="range" class="custom-range" min="0" max="100" name="">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Min</label>
-                                <input class="form-control" placeholder="$0" type="number">
-                            </div>
-                            <div class="form-group text-right col-md-6">
-                                <label>Max</label>
-                                <input class="form-control" placeholder="$1,0000" type="number">
-                            </div>
-                        </div> <!-- form-row.// -->
-                        <button class="btn btn-block btn-outline-primary">Apply</button>
-                    </div> <!-- card-body.// -->
-                </div> <!-- collapse .// -->
-            </article> <!-- card-group-item.// -->
+            <app-price-filter
+                    (eventEmitterFilter)="receivePriceFilter($event)"
+            ></app-price-filter>
             <app-supplier-filter
+                    [filters]="currentFilters"
                     [suppliers]="aggregations?.suppliers"
                     (eventEmitterFilter)="receiveSupplierFilter($event)"
             ></app-supplier-filter>
@@ -64,31 +48,32 @@
     <main class="col-sm-9">
 
         <div class="blog-grids">
-            <div class="grid" *ngFor="let article of (articles); trackBy: trackElement">
+            <div class="grid" *ngFor="let article of (articles);">
                 <div class="entry-media animated-background">
                     <img appFadeInOutDirective [show]="true" class="animated-background"
                          [src]="baseUrl + article.data.image">
                 </div>
-                <div class="entry-body">
-                    <span class="cat">{{article.data.title}}</span><br>
-                    <h3><span class="badge badge-pill badge-danger">{{article.data.category.name}}</span>
-                        &nbsp; <span class="badge badge-pill badge-warning">{{article.data.brand}}</span></h3>
-                    <h3><a [routerLink]="['/article/', article.data.id]">Visit {{article.data.title}}</a></h3>
-                    <div class="read-more-date">
-                        <a href="#">Read More...</a>
-                        <span class="date">3 Hours ago</span>
-                    </div>
+                <div class="cold-md-3 entry-body">
+                    <div class="cat" [innerHTML]="(article.data.highlight)? article.data.highlight.title : article.data.title"></div>
+                <h3><span class="badge badge-pill badge-danger"><small style="font-size: 10px;">Visible</small> {{(article.data.aggs.visible ? 'oui' : 'non')}}</span>
+                    &nbsp; <span class="badge badge-pill badge-light"><small style="font-size: 10px;">Marque</small> {{article.data.brand}}</span></h3>
+                  <h3><span class="badge badge-light"><small style="font-size: 10px;">Fournisseur</small> {{article.data.aggs.supplierName}}</span>&nbsp;
+                  <span class="badge badge-info"><small style="font-size: 10px;">Cat</small> {{article.data.aggs.categoryName}}</span></h3>
                 </div>
             </div>
+            <div class="grid" *ngIf="total === 0">Malheureusement il n'y a pas aucun résultat correspondant à cette recherche</div>
+            <div class="grid" *ngIf="total === undefined">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
         </div>
-        <div *ngIf="!total">Malheureusement il n'y a pas aucun résultat correspondant à cette recherche</div>
+
         <ngb-pagination [collectionSize]="total"
                         [pageSize]="limit"
                         [(page)]="page"
                         [maxSize]="2"
                         [rotate]="true"
                         (pageChange)="loadPage($event)"
-        z></ngb-pagination>
+        ></ngb-pagination>
 
     </main> <!-- col.// -->
 </div>

@@ -9,37 +9,25 @@ import {ArticleService} from '../../core/services/article.service';
   styleUrls: ['./article-search.component.css']
 })
 export class ArticleSearchComponent implements OnInit {
-  readonly baseUrl = `${environment.baseUrl}`;
-
-  res: any;
+  @Output() eventEmitterSearch = new EventEmitter<string>();
+  @Output() eventEmitterReset = new EventEmitter();
 
   public searchForm: FormGroup;
-  constructor(private articleService: ArticleService) {
-  }
-
+  constructor(private articleService: ArticleService) {}
 
   ngOnInit() {
-    // this.queryField.valueChanges.pipe(
-    //   filter(string => string.length > 0),
-    //   debounceTime(200),
-    //   switchMap(queryField =>
-    //     this._searchService.search(queryField)
-    //   )).subscribe((res: ItemResponse) => this.results = res._embedded.articles);
-
-      this.searchForm = new FormGroup({
-          queryField: new FormControl()
-      });this.searchForm.setValue({queryField: ''});
+    this.searchForm = new FormGroup({
+        queryField: new FormControl(),
+        sort: new FormControl()
+    });
   }
 
-    @Output() eventEmitterSearch = new EventEmitter<string>();
-    @Output() eventEmitterReset = new EventEmitter();
+  search() {
+  const $formValue = this.searchForm.value;
+      this.eventEmitterSearch.emit($formValue);
+  }
 
-    search() {
-    const $searchQuery = this.searchForm.value.queryField;
-        this.eventEmitterSearch.emit($searchQuery);
-    }
-
-    reset() {
-        this.eventEmitterReset.emit();
-    }
+  reset() {
+      this.eventEmitterReset.emit();
+  }
 }

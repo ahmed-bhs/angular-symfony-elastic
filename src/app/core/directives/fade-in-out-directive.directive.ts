@@ -28,14 +28,14 @@ export class FadeInOutDirectiveDirective {
   private fadeIn(): AnimationMetadata[] {
     return [
       style({opacity: 0}),
-      animate('400ms ease-in', style({opacity: 1})),
+      animate('200ms ease-in', style({opacity: 1})),
     ];
   }
 
   private fadeOut(): AnimationMetadata[] {
     return [
       style({opacity: '*'}),
-      animate('400ms ease-in', style({opacity: 0})),
+      animate('200ms ease-in', style({opacity: 0})),
     ];
   }
 }

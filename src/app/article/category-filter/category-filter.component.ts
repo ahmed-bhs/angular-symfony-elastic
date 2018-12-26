@@ -1,5 +1,6 @@
+import { Filter } from './../model/filter.model';
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Aggregation} from '../aggregation.modle';
+import {Aggregation} from '../model/aggregation.modle';
 
 @Component({
   selector: 'app-category-filter',
@@ -12,7 +13,7 @@ export class CategoryFilterComponent {
      @Input() categories: Aggregation[];
      @Output() eventEmitterFilter = new EventEmitter<number>();
 
-    filter($category) {
-        this.eventEmitterFilter.emit(JSON.parse($category.label));
+    filter($category: string) {
+        this.eventEmitterFilter.emit(JSON.parse($category));
     }
 }

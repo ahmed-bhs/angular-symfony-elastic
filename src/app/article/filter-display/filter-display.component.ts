@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Filter} from '../model/filter.model';
 
 @Component({
   selector: 'app-filter-display',
@@ -6,16 +7,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./filter-display.component.css']
 })
 export class FilterDisplayComponent {
-    @Input() filter: any;
+    @Input() filter: Filter;
     @Output() unfiltered = new EventEmitter();
 
-    unfilter($event) {
-        this.unfiltered.emit({
-            filter: this.filter,
-            $event
-        });
+    unfilter() {
+        this.unfiltered.emit(this.filter);
     }
 }
-
-
-

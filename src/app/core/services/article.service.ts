@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {ItemResponse} from '../../article/item-response.model';
+import {ItemResponse} from '../../article/model/item-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +24,10 @@ export class ArticleService {
   }
 
   changeData(res: ItemResponse) {
-    this.data.next(res)
+    this.data.next(res);
   }
 
   bindParams(params) {
-      this.params.next(params)
+      this.params.next(params);
   }
 }

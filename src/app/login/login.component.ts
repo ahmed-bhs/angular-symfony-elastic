@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {PreviousRouteService} from '../core/services/previous-route.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +19,17 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private previousRouteService: PreviousRouteService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cookieService: CookieService
   ) {
     toastr.toastrConfig.preventDuplicates = true;
   }
 
   ngOnInit() {
+      this.loginForm = this.formBuilder.group({
+          'email': ['', Validators.email],
+          'password': ['', Validators.required]
+      });
   }
 
   loginUser() {
@@ -33,13 +39,12 @@ export class LoginComponent implements OnInit {
         res => {
           if (res.token) {
             this.toastr.success('l\'authentification a réussi');
-            localStorage.setItem('token', res.token);
+            this.cookieService.set('token', res.token);
             this.router.navigate([this.previousRouteService.getPreviousUrl()]);
           }
         },
         err => this.toastr.error(err)
-      )
-      ;
+      );
   }
 
   get password() {

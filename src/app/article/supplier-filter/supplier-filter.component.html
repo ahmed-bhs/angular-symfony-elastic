@@ -7,15 +7,19 @@
     <div class="card-body">
       <form  (submit)="submit(form.value)">
         <label  class="form-check" *ngFor="let supplier of suppliers;">
-          <input class="form-check-input" (change)="filter(supplier.label, $event.target.checked)" type="checkbox" [checked]="(form.value|json).indexOf((supplier.label|jsonObject).id) >= 0">
+
+          <input class="form-check-input" type="checkbox"
+                 (change)="filter(supplier.label, $event.target.checked)"
+                 [checked]="(filters|json).indexOf((supplier.label|jsonObject).id) >= 0"
+          >
           <span class="form-check-label">
                 <span class="float-right badge badge-light round">{{supplier.count}}</span>
                   {{(supplier.label|jsonObject).name}}
               </span>
         </label>
         <button class="btn btn-block btn-outline-primary">Apply</button>
-
       </form>
     </div> <!-- card-body.// -->
   </div> <!-- collapse .// -->
 </article> <!-- card-group-item.// -->
+

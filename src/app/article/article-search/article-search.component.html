@@ -1,10 +1,15 @@
 <form action="#" class="search-wrap" [formGroup]="searchForm">
   <div class="input-group w-100">
     <input formControlName="queryField" type="text" class="form-control" style="width:55%;" placeholder="search for artists...">
-    <select class="custom-select"  name="category_name">
-      <option value="">All type</option><option value="codex">Special</option>
-      <option value="comments">Only best</option>
-      <option value="content">Latest</option>
+    <select class="custom-select" formControlName="sort">
+      <option value="" [selected]="true">Trier par</option>
+      <option value="score">Pertinence</option>
+      <option value="title">Titre</option>
+      <option value="supplierName">Fournisseur</option>
+      <option value="categoryName">Categorie</option>
+      <option value="brand">Marque</option>
+      <option value="-visible">Visible</option>
+
     </select>
     <div class="input-group-append">
       <input class="btn btn-primary" value="Search ..."  type="submit" (click)="search()"  />
