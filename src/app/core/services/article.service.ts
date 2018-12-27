@@ -17,7 +17,7 @@ export class ArticleService {
     paramsMessage = this.params.asObservable();
   constructor(private http: HttpClient) { }
 
-  getArticles(params?: HttpParams): Observable<any> {
+  getArticles(params?: HttpParams) {
     return this.http.get(this._articlesUrl, {
       params: params
     });

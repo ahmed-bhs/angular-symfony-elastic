@@ -8,22 +8,23 @@ import {Filter} from '../model/filter.model';
     templateUrl: './supplier-filter.component.html',
     styleUrls: ['./supplier-filter.component.css']
 })
-export class SupplierFilterComponent {
+export class SupplierFilterComponent implements  OnChanges{
+    ngOnChanges(){
 
+    }
     form: FormGroup;
     suppliersFormArray: FormArray;
     @Input() suppliers: Aggregation[];
     @Input() filters: Filter[];
     @Output() eventEmitterFilter = new EventEmitter<number>();
 
-    constructor(formBuilder: FormBuilder) {
+    constructor(formBuilder: FormBuilder) {console.log(this.filters);
         this.form = formBuilder.group({
             'suppliers': formBuilder.array([])
         });
     }
 
     filter($label: string, isChecked: boolean) {
-
         const supplier = JSON.parse($label);
 
         this.suppliersFormArray = <FormArray>this.form.controls.suppliers;

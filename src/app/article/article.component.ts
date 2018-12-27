@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Article} from './model/article.model';
@@ -8,13 +8,16 @@ import {createHttpParams} from '../core/utils/http-params';
 import * as _ from 'underscore';
 import {Filter} from './model/filter.model';
 import {Aggregations} from './model/aggregations.model';
+import 'rxjs/add/operator/takeUntil';
+import {getArticles} from './articles.reducer';
+import {Subject} from 'rxjs';
 
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
     styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnDestroy {
     // Image Base URL
     readonly baseUrl = `${environment.baseUrl}`;
     // PAGINATION
@@ -30,7 +33,6 @@ export class ArticleComponent implements OnInit {
     private suppliersIds: number[];
     private priceLte: number;
     private priceGte: number;
-
     // RESPONSE ELEMENTS
     public aggregations: Aggregations;
     public articles: Article[];
@@ -40,11 +42,11 @@ export class ArticleComponent implements OnInit {
     httpParams: HttpParams;
 
     // DESTROY SUBSCRIPTION
-    // private _destroyed$ = new Subject();
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private http: HttpClient,
-        private articleService: ArticleService,
+        private articleService: ArticleService
     ) { }
 
     ngOnInit() {
@@ -75,7 +77,7 @@ export class ArticleComponent implements OnInit {
 
         this.articleService.getArticles(
             this.httpParams
-        ).subscribe((res: ItemResponse) => {
+        ).takeUntil(this.destroy$).subscribe((res: ItemResponse) => {
             if (res) {
                 this.page = res.page;
                 this.total = res.total;
@@ -121,7 +123,7 @@ export class ArticleComponent implements OnInit {
       this.loadData({
         'priceGte': this.priceLte,
         'priceLte': this.priceGte
-    });
+        });
     }
 
     resetSearchQuery() {
@@ -136,5 +138,11 @@ export class ArticleComponent implements OnInit {
         this.suppliersIds = this.suppliersIds.filter(id => id !== $filter.id);
         // Set values for this.categoryId and this.suppliers and then call loadData()
         this.loadData();
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        // Now let's also unsubscribe from the subject itself:
+        this.destroy$.unsubscribe();
     }
 }
