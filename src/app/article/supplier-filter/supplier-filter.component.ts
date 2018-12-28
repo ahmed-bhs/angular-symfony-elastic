@@ -8,19 +8,31 @@ import {Filter} from '../model/filter.model';
     templateUrl: './supplier-filter.component.html',
     styleUrls: ['./supplier-filter.component.css']
 })
-export class SupplierFilterComponent implements  OnChanges{
-    ngOnChanges(){
+export class SupplierFilterComponent implements OnChanges {
 
-    }
     form: FormGroup;
     suppliersFormArray: FormArray;
     @Input() suppliers: Aggregation[];
-    @Input() filters: Filter[];
-    @Output() eventEmitterFilter = new EventEmitter<number>();
+    @Input() filters: number[];
+    @Output() eventEmitterFilter = new EventEmitter<any>();
 
-    constructor(formBuilder: FormBuilder) {console.log(this.filters);
+    ngOnChanges() {
+        if ( typeof this.filters !== 'undefined' && this.filters.length >= 0) {
+          const control = <FormArray>this.form.controls['suppliers'];
+
+          for (let i = control.length - 1; i >= 0; i--) {
+              control.removeAt(i);
+          }
+
+          this.filters.forEach(supplier => {
+              this.suppliersFormArray.push(new FormControl(supplier));
+          });
+      }
+  }
+
+    constructor(formBuilder: FormBuilder) {
         this.form = formBuilder.group({
-            'suppliers': formBuilder.array([])
+            'suppliers': new FormArray([])
         });
     }
 

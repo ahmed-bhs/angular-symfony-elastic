@@ -9,7 +9,6 @@ import * as _ from 'underscore';
 import {Filter} from './model/filter.model';
 import {Aggregations} from './model/aggregations.model';
 import 'rxjs/add/operator/takeUntil';
-import {getArticles} from './articles.reducer';
 import {Subject} from 'rxjs';
 
 @Component({

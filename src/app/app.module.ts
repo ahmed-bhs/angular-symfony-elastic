@@ -26,6 +26,8 @@ import { FilterDisplayComponent } from './article/filter-display/filter-display.
 import { CookieService } from 'ngx-cookie-service';
 import { PriceFilterComponent } from './article/price-filter/price-filter.component';
 import {Ng5SliderModule} from 'ng5-slider';
+import { OnCheckBoxDirective } from './article/on-check-box.directive';
+import {ChecklistModule} from 'angular-checklist';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,8 @@ import {Ng5SliderModule} from 'ng5-slider';
     BrandFilterComponent,
     SupplierFilterComponent,
     FilterDisplayComponent,
-    PriceFilterComponent
+    PriceFilterComponent,
+    OnCheckBoxDirective
   ],
   imports: [
     CoreModule,
@@ -56,7 +59,8 @@ import {Ng5SliderModule} from 'ng5-slider';
     MasonryModule,
     NgbModule,
     NgbPaginationModule,
-    Ng5SliderModule
+    Ng5SliderModule,
+      ChecklistModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
