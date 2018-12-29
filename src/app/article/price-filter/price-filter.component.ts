@@ -16,26 +16,25 @@ export class PriceFilterComponent implements OnChanges {
     options: Options;
 
     ngOnChanges() {
+        console.log(this.max); //undifined then NaN
         if (this.floor && this.ceil) {
+            console.log(this.max); // NAN
+            this.max = Number(this.ceil.toFixed(0)) || 0;
+            this.min = Number(this.floor.toFixed(0)) || 0;
 
-            if (isNaN(this.max) && isNaN(this.min)) {
-                this.max = Number(this.ceil.toFixed(0)) || 0;
-                this.min = Number(this.floor.toFixed(0)) || 0;
-
-                this.options = {
-                    floor: this.floor,
-                    ceil: this.ceil,
-                    showSelectionBar: true,
-                    selectionBarGradient: {
-                        from: 'white',
-                        to: '#007bff'
-                    },
-                    showOuterSelectionBars: true,
-                    translate: (value: number, label: LabelType): string => {
-                        return value + '€';
-                    }
-                };
-            }
+            this.options = {
+                floor: this.floor,
+                ceil: this.ceil,
+                showSelectionBar: true,
+                selectionBarGradient: {
+                    from: 'white',
+                    to: '#007bff'
+                },
+                showOuterSelectionBars: true,
+                translate: (value: number, label: LabelType): string => {
+                    return value + '€';
+                }
+            };
         }
     }
 
