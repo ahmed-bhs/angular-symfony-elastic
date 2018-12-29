@@ -1,5 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input, OnChanges} from '@angular/core';
-import {Aggregation} from '../model/aggregation.modle';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {LabelType, Options} from 'ng5-slider';
 
 @Component({
@@ -8,30 +7,41 @@ import {LabelType, Options} from 'ng5-slider';
   styleUrls: ['./price-filter.component.css']
 })
 export class PriceFilterComponent implements OnChanges {
-    @Input('floor') floor ;
-    @Input('ceil') ceil;
-    minValue: number = 100.00;
-    maxValue: number = 400.00;
+    @Input() floor ;
+    @Input() ceil;
+    @Output() eventEmitterFilter = new EventEmitter<{}>();
+    min: any;
+    max: any;
 
     options: Options;
-    ngOnChanges(){
-        if( this.floor && this.ceil) {
+    ngOnChanges() {
+        if ( this.floor && this.ceil) {
+          console.log( isNaN(this.max));
+           if (isNaN(this.max) && isNaN(this.min)) {
+            this.max = Number(this.ceil.toFixed(0)) || 0;
 
+            this.min = Number(this.floor.toFixed(0)) || 0;
+            console.log(this.min);
             this.options = {
-                floor: Number(this.floor.toFixed(2)),
-                ceil: Number(this.ceil.toFixed(2))
+              floor: this.floor,
+              ceil: this.ceil,
+              showSelectionBar: true,
+              selectionBarGradient: {
+                from: 'white',
+                to: '#007bff'
+              },
+              showOuterSelectionBars: true,
+              translate: (value: number, label: LabelType): string => {
+                return value + '€';
+              }
+          };
+           }
 
-            };
+
         }
     }
-constructor() {
 
-}
-
-  @Output() eventEmitterFilter = new EventEmitter<{}>();
-
-
- filter($event) {
-     this.eventEmitterFilter.emit($event);
+ filter() {
+    this.eventEmitterFilter.emit({'ceil' : this.max, 'floor' : this.min});
  }
 }

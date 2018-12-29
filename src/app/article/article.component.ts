@@ -117,11 +117,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
     }
 
     receivePriceFilter($event) {
-      this.priceLte = $event.priceLte;
-      this.priceGte = $event.priceGte;
+      console.log($event);
+      this.priceLte = $event.ceil;
+      this.priceGte = $event.floor;
       this.loadData({
-        'priceGte': this.priceLte,
-        'priceLte': this.priceGte
+        'priceGte': this.priceGte,
+        'priceLte': this.priceLte
         });
     }
 
@@ -129,6 +130,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.query = '';
         this.categoryId = null;
         this.suppliersIds = [];
+        this.priceGte = null;
+        this.priceGte = null;
         this.loadData();
     }
 

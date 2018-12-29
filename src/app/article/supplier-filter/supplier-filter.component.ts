@@ -28,7 +28,7 @@ export class SupplierFilterComponent implements OnChanges {
               this.suppliersFormArray.push(new FormControl(supplier));
           });
       }
-  }
+    }
 
     constructor(formBuilder: FormBuilder) {
         this.form = formBuilder.group({
