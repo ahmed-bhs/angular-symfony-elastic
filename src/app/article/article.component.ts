@@ -131,7 +131,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.categoryId = null;
         this.suppliersIds = [];
         this.priceGte = null;
-        this.priceGte = null;
+        this.priceLte = null;
         this.loadData();
     }
 
