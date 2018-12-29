@@ -5,4 +5,7 @@ export interface Aggregations {
     category: Aggregation;
     label: Aggregation;
     suppliers: Aggregation;
+    without_filter_min: {value: number};
+    without_filter_max: {value: number};
+
 }
