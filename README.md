@@ -8,10 +8,10 @@ Version numero 2:
 <img src="https://i.imgur.com/a1D5zYp.png"/>
 
 
-Une petite application de facettes qui tourne principalement sur le couplage Symfony 4.1 Elasticserach 6.5 et Angular 7 notamment RXJS ... On parlera aujourd'hui technique, métier, architecture et performance... Je ai testé en quelques minutes sur une base d'un million de documents indexés et franchement le resultat était vraiement bluffant !  c'est tellemnt extra ordinaire résultat.
+Une petite application de facettes qui tourne principalement sur le couplage Symfony 4.1 Elasticserach 6.5 et Angular 7 notamment RXJS ... On parlera aujourd'hui technique, métier, architecture et performance... J'ai testé en quelques minutes sur une base d'un million de documents indexés et franchement le resultat était vraiement bluffant !  c'est tellemnt extra ordinaire résultat.
 Bah pour les gens qui connais Une facette Je vais pas m'embettre trop, ca existe sur google
- ca rassemblle exactement à ca.... 
- En gros c'est une interface d'outils qui permet d'affiner un résultat de recherche. Imaginez un site marchand. Vous cherchez un ou plusieurs mots, par exemple : une tabllette de marque appel qui provient du Fnac comme fournisseur. Donc ou veudrais avoir notre produit qui est de catgéorie életorménagie et qui provient de Fnac ou bien d'autres fournisseur particuliers.
+ ca rassemblle exactement à l'image ci-dessus.
+En gros, c'est une interface d'outils qui permet d'affiner un résultat de recherche. Imaginez un site marchand. Vous cherchez un ou plusieurs mots, par exemple : une tabllette de marque appel qui provient du Fnac comme fournisseur. Donc ou veudrais avoir notre produit qui est de catgéorie életorménagie et qui provient de Fnac ou bien d'autres fournisseur particuliers.
 
 L'app nous fournit une liste des éléments correspondants et en général ajoute des critaires à fur et à musure pour vous aider à affiner votre recherche avec des filtres une barre de recherche, des outils de trie eetc...
 Pour ce faire il y a pas mal de possiblité, personnlement j'ai choisi le stack technique symfony pour L'api et angular pour lapartie client..
